@@ -1,1 +1,1 @@
-![Screen Shot]([https://example.com/your-image.jpg](https://raw.githubusercontent.com/mehedihasan9339/QRCodeDemoApp/master/QRCodeDemoApp/wwwroot/Screenshot_6.png)https://raw.githubusercontent.com/mehedihasan9339/QRCodeDemoApp/master/QRCodeDemoApp/wwwroot/Screenshot_6.png)
+![ScreenShot](QRCodeDemoApp/wwwroot/Screenshot_6.png)
