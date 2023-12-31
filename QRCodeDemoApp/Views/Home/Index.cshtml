@@ -1,8 +1,122 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model QRCodeViewModel
+
+@{
+    ViewData["Title"] = "GenerateQrCode";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="card">
+    <div class="card-header">
+        QR Code Generator
+    </div>
+    <div class="card-body row">
+        <div class="col-8">
+            <form id="qrCodeData">
+                <div class="form-group row mb-1">
+                    <label class="col-2">Name</label>
+                    <div class="col-md-10">
+                        <input class="form-control" name="Name" value="Mehedi Hasan" id="Name" />
+                    </div>
+                </div>
+
+                <div class="form-group row mb-1">
+                    <label class="col-2">Phone</label>
+                    <div class="col-md-10">
+                        <input class="form-control" name="Phone" value="@DateTime.Now.Ticks.ToString()" id="Phone" />
+                    </div>
+                </div>
+
+                <div class="form-group row mb-1">
+                    <label class="col-2">Email</label>
+                    <div class="col-md-10">
+                        <input class="form-control" value="mehedihasan9339@gmail.com" name="Email" id="Email" />
+                    </div>
+                </div>
+
+                <div class="form-group row mb-1">
+                    <label class="col-2">Url</label>
+                    <div class="col-md-10">
+                        <input class="form-control" value="profileofmehedi.xyz" name="Url" id="Url" />
+                    </div>
+                </div>
+
+                <div class="form-group row mb-1">
+                    <label class="col-2">Address</label>
+                    <div class="col-md-10">
+                        <input class="form-control" name="Address" value="" id="Address" />
+                    </div>
+                </div>
+
+                <div class="form-group row mb-1">
+                    <label class="col-2">Occupation</label>
+                    <div class="col-md-10">
+                        <input class="form-control" name="Occupation" value="" id="Occupation" />
+                    </div>
+                </div>
+
+                <div class="form-group row mb-1">
+                    <label class="col-2">Date of Birth</label>
+                    <div class="col-md-10">
+                        <input type="date" class="form-control" name="DateOfBirth" value="" id="DateOfBirth" />
+                    </div>
+                </div>
+
+                <div class="form-group row mb-1">
+                    <label class="col-2">Gender</label>
+                    <div class="col-md-10">
+                        <select class="form-control" name="Gender" id="Gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-1">
+                    <label class="col-2">Additional Field</label>
+                    <div class="col-md-10">
+                        <input class="form-control" name="AdditionalField" value="" id="AdditionalField" />
+                    </div>
+                </div>
+
+                <div class="form-group row mb-1">
+                    <div class="col-2">
+                        <a class="btn btn-success btn-sm" onclick="GenerateQRCode()">Generate</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-4" style="display: flex; justify-content: center;">
+            <img id="qrImg" src="https://rjcolorado.org/wp-content/uploads/2016/04/dummy-post-square-1.jpg" width="200" height="200" />
+        </div>
+    </div>
 </div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        function GenerateQRCode() {
+            var data = $('#qrCodeData').serialize();
+
+            $.ajax({
+                url: '/Home/GenerateQRCodeImage',
+                method: 'POST',
+                data: data,
+                success: function (response) {
+                    // Handle the successful response
+                    console.log('Response:', response);
+
+                    $('#qrImg').attr('src', '/QRCode/' + response);
+                },
+                error: function (error) {
+                    // Handle the error
+                    console.error('Error:', error);
+                    $('#qrImg').attr('src', 'https://rjcolorado.org/wp-content/uploads/2016/04/dummy-post-square-1.jpg');
+                }
+            });
+        }
+    </script>
+}

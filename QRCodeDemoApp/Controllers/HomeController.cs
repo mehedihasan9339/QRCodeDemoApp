@@ -34,20 +34,13 @@ namespace QRCodeDemoApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> GenerateQrCode()
-        {
-            
-            return View();
-        }
 
 
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> GenerateQRCodeImage(QRCodeViewModel model)
         {
-            string data = $"Name: {model.Name}\nPhone: {model.Phone}\nEmail: {model.Email}\nUrl: {model.Url}";
+            string data = $"Name: {model.Name}\nPhone: {model.Phone}\nEmail: {model.Email}\nUrl: {model.Url}\nAddress: {model.Address}\nOccupation: {model.Occupation}\nDateOfBirth: {model.DateOfBirth}\nGender: {model.Gender}\nAdditionalField: {model.AdditionalField}";
 
 
             string qrCode = _qrCodeGenerator.GenerateAndSaveQrCode(data);
